@@ -67,8 +67,13 @@ export default function DataArchives({
                   {p.waveType?.slice(0, 3).toUpperCase()}
                 </div>
                 <div>
-                  <div className="text-[11px] font-black text-white tracking-widest">
+                  <div className="text-[11px] font-black text-white tracking-widest flex items-center gap-2">
                     {p.label}
+                    {(p.audiogramData || p.label.startsWith('HEADSET_')) && (
+                      <span className="text-[8px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-1.5 py-0.5 rounded font-mono uppercase">
+                        Headset Scan
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[9px] font-bold text-slate-500 mt-0.5">
                     {p.timestamp && (

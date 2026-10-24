@@ -1,6 +1,6 @@
 'use client';
 
-import { Cpu, HelpCircle, LogIn } from 'lucide-react';
+import { Cpu, HelpCircle, LogIn, Headphones } from 'lucide-react';
 import type { Dispatch, SetStateAction } from 'react';
 import type { User } from 'firebase/auth';
 import { Button } from './ui/button';
@@ -48,7 +48,7 @@ export default function AppHeader({
           <nav className="flex items-center gap-1 p-1 bg-slate-900 rounded-xl w-full justify-center sm:w-auto">
             <button
               onClick={() => setActiveTab('simulator')}
-              className={`flex-1 sm:flex-initial px-4 sm:px-6 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+              className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
                 activeTab === 'simulator'
                   ? 'bg-cyan-500 text-slate-950'
                   : 'text-slate-500 hover:text-slate-300'
@@ -57,8 +57,19 @@ export default function AppHeader({
               Console
             </button>
             <button
+              onClick={() => setActiveTab('headset')}
+              className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-1.5 ${
+                activeTab === 'headset'
+                  ? 'bg-cyan-500 text-slate-950'
+                  : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              <Headphones size={12} />
+              Headset
+            </button>
+            <button
               onClick={() => setActiveTab('history')}
-              className={`flex-1 sm:flex-initial px-4 sm:px-6 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+              className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
                 activeTab === 'history'
                   ? 'bg-cyan-500 text-slate-950'
                   : 'text-slate-500 hover:text-slate-300'
@@ -68,7 +79,7 @@ export default function AppHeader({
             </button>
             <button
               onClick={() => setActiveTab('play')}
-              className={`flex-1 sm:flex-initial px-4 sm:px-6 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+              className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
                 activeTab === 'play'
                   ? 'bg-cyan-500 text-slate-950'
                   : 'text-slate-500 hover:text-slate-300'

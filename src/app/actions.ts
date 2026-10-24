@@ -7,10 +7,18 @@ const HearingExperienceSchema = z.object({
   hearingExperience: z.string().min(10, { message: "Please describe your experience in more detail." }),
 });
 
+export type AdviceState = {
+  message: string;
+  data?: any;
+  errors?: {
+    hearingExperience?: string[];
+  };
+};
+
 export async function generateTinnitusAdvice(
-  prevState: any,
+  prevState: AdviceState,
   formData: FormData
-) {
+): Promise<AdviceState> {
   const validatedFields = HearingExperienceSchema.safeParse({
     hearingExperience: formData.get("hearingExperience"),
   });

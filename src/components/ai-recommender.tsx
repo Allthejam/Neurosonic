@@ -4,7 +4,7 @@ import { useEffect, useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { Sparkles, HelpingHand, Stethoscope, Smartphone, Group } from "lucide-react";
 
-import { generateTinnitusAdvice } from "@/app/actions";
+import { generateTinnitusAdvice, type AdviceState } from "@/app/actions";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -18,11 +18,7 @@ import {
 } from "@/components/ui/card";
 import type { TinnitusAdviceOutput } from "@/ai/flows/personalized-sound-recommendation";
 
-const initialState: {
-    message: string;
-    data?: TinnitusAdviceOutput;
-    errors?: { hearingExperience?: string[] };
-} = {
+const initialState: AdviceState = {
   message: "",
   data: undefined,
   errors: undefined,

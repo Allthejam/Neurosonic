@@ -31,6 +31,7 @@ import DataArchives from '@/components/data-archives';
 import AiRecommender from '@/components/ai-recommender';
 import AuthModal from '@/components/auth-modal';
 import SoundTherapy from '@/components/sound-therapy';
+import HeadsetMode from '@/components/headset-mode';
 
 export default function Home() {
   const { user, isUserLoading } = useUser();
@@ -183,6 +184,58 @@ export default function Home() {
     setShowAuthModal(false);
   };
 
+  const handleSaveHeadsetProfile = useCallback(
+    (profileData: {
+      leftFreq: number;
+      rightFreq: number;
+      leftVol: number;
+      rightVol: number;
+      waveType: WaveformType;
+      label: string;
+      audiogramData?: any;
+    }) => {
+      if (!firestore || !user || user.isAnonymous) {
+        toast({
+          title: 'Sign In Required',
+          description: 'Please sign in to save and archive your headset audiogram.',
+        });
+        setShowAuthModal(true);
+        return;
+      }
+
+      const newProfile: SoundProfile = {
+        leftFreq: profileData.leftFreq,
+        rightFreq: profileData.rightFreq,
+        leftVol: profileData.leftVol,
+        rightVol: profileData.rightVol,
+        waveType: profileData.waveType,
+        leftPhaseInverted,
+        rightPhaseInverted,
+        timestamp: Timestamp.now(),
+        label: profileData.label,
+        audiogramData: profileData.audiogramData,
+      };
+
+      addDocumentNonBlocking(collection(firestore, 'users', user.uid, 'soundProfiles'), newProfile)
+        .then(() => {
+          toast({
+            title: 'Audiogram Saved',
+            description: 'Your headset calibration has been saved to your archives.',
+          });
+          setActiveTab('history');
+        })
+        .catch((e) => {
+          console.error('Save failed', e);
+          toast({
+            variant: 'destructive',
+            title: 'Save Failed',
+            description: 'Could not save the profile to the database.',
+          });
+        });
+    },
+    [firestore, user, leftPhaseInverted, rightPhaseInverted, toast]
+  );
+
   const loadProfile = (p: SoundProfile) => {
     setLeftFreq(p.leftFreq);
     setRightFreq(p.rightFreq);
@@ -287,6 +340,23 @@ export default function Home() {
             />
             <AiRecommender />
           </>
+        )}
+        {activeTab === 'headset' && (
+          <HeadsetMode
+            leftFreq={leftFreq}
+            rightFreq={rightFreq}
+            leftVol={leftVol}
+            rightVol={rightVol}
+            waveType={waveType}
+            setLeftFreq={setLeftFreq}
+            setRightFreq={setRightFreq}
+            setLeftVol={setLeftVol}
+            setRightVol={setRightVol}
+            setWaveType={setWaveType}
+            setIsLinked={setIsLinked}
+            onSaveToArchive={handleSaveHeadsetProfile}
+            onSwitchToConsole={() => setActiveTab('simulator')}
+          />
         )}
         {activeTab === 'history' && (
           <DataArchives 

@@ -13,4 +13,12 @@ export type SoundProfile = {
   label: string;
   leftPhaseInverted: boolean;
   rightPhaseInverted: boolean;
+  audiogramData?: {
+    frequencies: number[];
+    leftThresholds: number[];
+    rightThresholds: number[];
+    tinnitusEar?: string;
+    matchedFreq?: number;
+    matchedVol?: number;
+  };
 };
