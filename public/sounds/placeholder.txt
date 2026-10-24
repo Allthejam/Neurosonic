@@ -1,0 +1,6 @@
+Please add your sound files to this directory. The app will look for the following files:
+
+- ocean-waves.mp3
+- rainstorm.mp3
+- forest-sounds.mp3
+- light-music.mp3

@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 224 88% 5%; /* #020617 */
+    --foreground: 210 40% 98%;
+
+    --card: 215 28% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 224 88% 5%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 243 79% 61%; /* #4F46E5 */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 215 28% 17%; /* slate-900 */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 28% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 187 94% 43%; /* cyan-500 */
+    --accent-foreground: 224 88% 5%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 100% / 0.05;
+    --input: 215 28% 23%;
+    --ring: 187 94% 43%;
+
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 224 88% 5%;
+    --foreground: 210 40% 98%;
+    --card: 215 28% 12%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 88% 5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 243 79% 61%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 215 28% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 28% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 187 94% 43%;
+    --accent-foreground: 224 88% 5%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 0 0% 100% / 0.05;
+    --input: 215 28% 23%;
+    --ring: 187 94% 43%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-slate-100;
+  }
+  ::selection {
+    @apply bg-cyan-500/30;
+  }
+}
+
+@layer components {
+  .race-slider-mobile {
+    -webkit-appearance: none;
+    @apply relative z-10 -mt-[14px] h-12 w-full cursor-pointer bg-transparent;
+  }
+  .race-slider-mobile::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @apply h-9 w-[18px] cursor-pointer rounded-md border-2 bg-white;
+    box-shadow: 0 0 15px var(--accent), 0 0 30px var(--glow);
+    transform: skewX(-15deg);
+    border-color: var(--accent);
+  }
+  .race-slider-mobile::-moz-range-thumb {
+    @apply h-9 w-[18px] cursor-pointer rounded-md border-2 bg-white;
+    box-shadow: 0 0 15px var(--accent), 0 0 30px var(--glow);
+    transform: skewX(-15deg);
+    border-color: var(--accent);
+  }
+  .race-slider-mobile::-webkit-slider-runnable-track {
+    @apply h-12 w-full cursor-pointer bg-transparent;
+  }
+  .race-slider-mobile::-moz-range-track {
+    @apply h-12 w-full cursor-pointer bg-transparent;
+  }
+  .race-slider-mobile:focus {
+    @apply outline-none;
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user's profile, storing non-sensitive information. The document ID is the user's auth UID.",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the user profile was created."
+        }
+      },
+      "required": [
+        "email",
+        "createdAt",
+        "displayName"
+      ]
+    },
+    "SoundProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "SoundProfile",
+      "type": "object",
+      "description": "Represents a saved sound profile with specific frequency, volume, waveform, and phase settings.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the sound profile."
+        },
+        "leftFreq": {
+          "type": "number",
+          "description": "Frequency for the left ear (in Hz)."
+        },
+        "rightFreq": {
+          "type": "number",
+          "description": "Frequency for the right ear (in Hz)."
+        },
+        "leftVol": {
+          "type": "number",
+          "description": "Volume for the left ear (as a percentage)."
+        },
+        "rightVol": {
+          "type": "number",
+          "description": "Volume for the right ear (as a percentage)."
+        },
+        "waveType": {
+          "type": "string",
+          "description": "Waveform type (e.g., sine, square, sawtooth, triangle)."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp indicating when the profile was created.",
+          "format": "date-time"
+        },
+        "label": {
+          "type": "string",
+          "description": "User-defined label for the profile."
+        },
+        "leftPhaseInverted": {
+          "type": "boolean",
+          "description": "Whether the left channel's phase is inverted."
+        },
+        "rightPhaseInverted": {
+          "type": "boolean",
+          "description": "Whether the right channel's phase is inverted."
+        }
+      },
+      "required": [
+        "id",
+        "leftFreq",
+        "rightFreq",
+        "leftVol",
+        "rightVol",
+        "waveType",
+        "timestamp",
+        "label",
+        "leftPhaseInverted",
+        "rightPhaseInverted"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile information. The document ID '{userId}' is the Firebase Auth UID.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase Auth user's unique ID."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/soundProfiles/{soundProfileId}",
+        "definition": {
+          "entityName": "SoundProfile",
+          "schema": {
+            "$ref": "#/backend/entities/SoundProfile"
+          },
+          "description": "Stores sound profiles created by a user.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase Auth user's unique ID."
+            },
+            {
+              "name": "soundProfileId",
+              "description": "The unique identifier for the sound profile (UUID)."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The user profile is stored in a top-level `users` collection with the document ID matching the user's authentication UID. This allows for direct and efficient lookups. Sound profiles are stored in a subcollection under each user's document, naturally associating the data with its owner and simplifying security rules."
+  }
+}
