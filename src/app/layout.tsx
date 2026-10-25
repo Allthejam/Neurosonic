@@ -1,16 +1,19 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 export const metadata: Metadata = {
   title: 'NeuroSonic',
-  description: 'Tinnitus sound therapy and tracking.',
+  description: 'Tinnitus sound therapy, hearing loss simulation, and bilateral tracking.',
   manifest: '/manifest.webmanifest',
   icons: {
     icon: '/logo.svg',
     apple: '/logo.svg',
   },
+};
+
+export const viewport: Viewport = {
   themeColor: '#020617',
 };
 
